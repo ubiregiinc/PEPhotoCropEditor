@@ -39,7 +39,12 @@
         
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectInset(self.bounds, -2.0f, -2.0f)];
         imageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        imageView.image = [[UIImage imageNamed:@"PEPhotoCropEditor.bundle/PEPhotoCropEditorBorder"] resizableImageWithCapInsets:UIEdgeInsetsMake(23.0f, 23.0f, 23.0f, 23.0f)];
+#if SWIFT_PACKAGE
+        NSBundle *bundle = SWIFTPM_MODULE_BUNDLE;
+#else
+        NSBundle *bundle = [NSBundle mainBundle];
+#endif
+        imageView.image = [[UIImage imageNamed:@"PEPhotoCropEditor.bundle/PEPhotoCropEditorBorder" inBundle:bundle withConfiguration:nil] resizableImageWithCapInsets:UIEdgeInsetsMake(23.0f, 23.0f, 23.0f, 23.0f)];
         [self addSubview:imageView];
         
         self.topLeftCornerView = [[PEResizeControl alloc] init];

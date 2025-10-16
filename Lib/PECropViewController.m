@@ -26,7 +26,12 @@
     static NSBundle *bundle = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        NSURL *bundleURL = [[NSBundle mainBundle] URLForResource:@"PEPhotoCropEditor" withExtension:@"bundle"];
+#if SWIFT_PACKAGE
+        NSBundle *baseBundle = SWIFTPM_MODULE_BUNDLE;
+#else
+        NSBundle *baseBundle = [NSBundle mainBundle];
+#endif
+        NSURL *bundleURL = [baseBundle URLForResource:@"PEPhotoCropEditor" withExtension:@"bundle"];
         bundle = [[NSBundle alloc] initWithURL:bundleURL];
     });
     
